@@ -3,7 +3,7 @@
     <div v-if="isEditLayout">
       <grid-layout
         style="background: blue;"
-        :layout.sync="layouts"
+        :layout.sync="_layouts"
         :col-num="24"
         :row-height="30"
         :is-draggable="isEdit"
@@ -13,7 +13,7 @@
         @layout-updated="updateLayout"
       >
         <grid-item
-          v-for="item in layouts"
+          v-for="item in _layouts"
           :key="item.id"
           :x="item.x"
           :y="item.y"
@@ -21,11 +21,12 @@
           :h="item.h"
           :i="item.i"
         >
-          <div style="float: right; margin: 5px;">X</div>
           <component :is="item.i"></component>
+          <div style="float: right; margin: 5px;">X</div>
         </grid-item>
       </grid-layout>
       <button @click="onClickEdit">CREATE</button>
+      <button @click="addComponent">ADD</button>
     </div>
     <template v-else>
       <created-layout></created-layout>
@@ -36,15 +37,26 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
-import { CHANGE_IS_EDIT_STATUS, SET_LAYOUTS } from "./store/modules/layouts";
+import {
+  CHANGE_IS_EDIT_STATUS,
+  SET_LAYOUTS,
+  ADD_COMPONENT,
+} from "./store/modules/layouts";
 import VueGridLayout from "vue-grid-layout";
 import CreatedLayout from "./components/CreatedLayout";
 
 export default {
   name: "App",
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
+  },
   data() {
     return {
       isEdit: true,
+      deviceWidth: 0,
     };
   },
   components: {
@@ -55,9 +67,18 @@ export default {
     CurrentArenas: () => import("./components/CurrentArenas"),
     RankingComponent: () => import("./components/RankingComponent"),
     UserBanner: () => import("./components/UserBanner"),
+    Test: () => import("./components/Test"),
   },
   computed: {
     ...mapState("layouts", ["layouts", "isEditLayout"]),
+    _layouts: {
+      get() {
+        return this.layouts;
+      },
+      set(newLayout) {
+        this.setLayouts(newLayout);
+      },
+    },
   },
   methods: {
     ...mapActions("layouts", {
@@ -65,6 +86,7 @@ export default {
     }),
     ...mapMutations("layouts", {
       setLayouts: SET_LAYOUTS,
+      addComponent: ADD_COMPONENT,
     }),
     updateLayout(newLayout) {
       this.setLayouts(newLayout);
@@ -72,6 +94,12 @@ export default {
     onClickEdit() {
       this.isEdit = !this.isEdit;
     },
+    handleResize() {
+      this.deviceWidth = window.innerWidth;
+    },
+  },
+  watch: {
+    // deviceWidth(value) {},
   },
 };
 </script>

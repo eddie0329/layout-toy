@@ -1,5 +1,7 @@
 <template>
-  <div style="background: blue;">THIS IS USER BANNER</div>
+  <div
+    style="background: yellow; width: 100%; height: 100%; overflow-y: auto; position: absolute"
+  >THIS IS USER BANNER</div>
 </template>
 
 <script>

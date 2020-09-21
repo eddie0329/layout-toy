@@ -1,5 +1,7 @@
 <template>
-  <div style="background: red;">THIS IS RANKING COMPONENT</div>
+  <div
+    style="background: red; width: 100%; height: 100%; overflow-y: auto; position: absolute"
+  >THIS IS RANKING COMPONENT</div>
 </template>
 
 <script>

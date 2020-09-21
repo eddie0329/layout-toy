@@ -1,5 +1,7 @@
 <template>
-  <div style="background: purple; overflow-y: auto; ">LVUP TV</div>
+  <div
+    style="background: purple; overflow-y: auto; width: 100%; position: absolute; height: 100%"
+  >LVUP TV</div>
 </template>
 
 <script>
