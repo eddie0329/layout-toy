@@ -1,9 +1,13 @@
 <template>
-  <div style="background: purple;">THIS IS LVUP TV</div>
+  <div style="background: purple; overflow-y: auto; ">LVUP TV</div>
 </template>
 
 <script>
-export default {};
+export default {
+  created() {
+    console.log(this.$parent);
+  },
+};
 </script>
 
 <style>

@@ -6,14 +6,13 @@
         :layout.sync="layouts"
         :col-num="24"
         :row-height="30"
-        :is-draggable="true"
-        :is-resiable="true"
+        :is-draggable="isEdit"
+        :is-resizable="isEdit"
         :vertical-compact="true"
         :margin="[10, 10]"
         @layout-updated="updateLayout"
       >
         <grid-item
-          style="background: red;"
           v-for="item in layouts"
           :key="item.id"
           :x="item.x"
@@ -23,10 +22,10 @@
           :i="item.i"
         >
           <div style="float: right; margin: 5px;">X</div>
-          <div>{{item.i}}</div>
+          <component :is="item.i"></component>
         </grid-item>
       </grid-layout>
-      <button @click="changeIsEditStatus">CREATE</button>
+      <button @click="onClickEdit">CREATE</button>
     </div>
     <template v-else>
       <created-layout></created-layout>
@@ -43,10 +42,19 @@ import CreatedLayout from "./components/CreatedLayout";
 
 export default {
   name: "App",
+  data() {
+    return {
+      isEdit: true,
+    };
+  },
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
     CreatedLayout,
+    LvupTv: () => import("./components/LvupTv"),
+    CurrentArenas: () => import("./components/CurrentArenas"),
+    RankingComponent: () => import("./components/RankingComponent"),
+    UserBanner: () => import("./components/UserBanner"),
   },
   computed: {
     ...mapState("layouts", ["layouts", "isEditLayout"]),
@@ -60,6 +68,9 @@ export default {
     }),
     updateLayout(newLayout) {
       this.setLayouts(newLayout);
+    },
+    onClickEdit() {
+      this.isEdit = !this.isEdit;
     },
   },
 };

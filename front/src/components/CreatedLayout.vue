@@ -5,7 +5,7 @@
       v-for="item in layouts"
       :key="item.id"
       class="item"
-      :style="{'width': `${((item.w / 24) * 100) - 1}%`, 'height': `${item.h * 30}px`, 'background': 'red', 'transform': `translate3d(${Math.round(colWidth * item.x + (item.x + 1) * 10)}px, ${Math.round(30 * item.y + (item.y +1) * 10)}px, 0px)`} "
+      :style="{'width': `${((item.w / 24) * 100) - 1}%`, 'height': `${(item.h + 1) * 30}px`, 'transform': `translate3d(${Math.round(colWidth * item.x + (item.x + 1) * 10)}px, ${Math.round(30 * item.y + (item.y + 1) * 10)}px, 0px)`} "
     >{{item.i}}</component>
   </div>
 </template>
