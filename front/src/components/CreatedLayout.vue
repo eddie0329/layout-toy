@@ -1,11 +1,12 @@
 <template>
   <div class="container" ref="container">
-    <div
+    <component
+      :is="item.i"
       v-for="item in layouts"
       :key="item.id"
       class="item"
       :style="{'width': `${((item.w / 24) * 100) - 1}%`, 'height': `${item.h * 30}px`, 'background': 'red', 'transform': `translate3d(${Math.round(colWidth * item.x + (item.x + 1) * 10)}px, ${Math.round(30 * item.y + (item.y +1) * 10)}px, 0px)`} "
-    >{{item.i}}</div>
+    >{{item.i}}</component>
   </div>
 </template>
 
@@ -14,6 +15,12 @@ import { mapState } from "vuex";
 
 export default {
   name: "CreatedLayout",
+  components: {
+    LvupTv: () => import("./LvupTv"),
+    CurrentArenas: () => import("./CurrentArenas"),
+    RankingComponent: () => import("./RankingComponent"),
+    UserBanner: () => import("./UserBanner"),
+  },
   mounted() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
