@@ -23,16 +23,13 @@
           :i="item.i"
         >
           <component :is="item.i"></component>
-          <div style="float: right; margin: 5px;">X</div>
+          <div v-if="isEdit" @click="onClickDelete(item.id)" class="delete-btn">X</div>
         </grid-item>
       </grid-layout>
-      <button @click="onClickEdit">CREATE</button>
-      <button @click="addComponent">ADD</button>
+      <button v-if="isEdit" @click="onClickEdit">CREATE</button>
+      <button v-if="isEdit" @click="addComponent">ADD</button>
+      <button v-else @click="onClickEdit">EDIT</button>
     </div>
-    <template v-else>
-      <created-layout></created-layout>
-      <button @click="changeIsEditStatus">EDIT</button>
-    </template>
   </div>
 </template>
 
@@ -42,6 +39,7 @@ import {
   CHANGE_IS_EDIT_STATUS,
   SET_LAYOUTS,
   ADD_COMPONENT,
+  DELETE_COMPONENT
 } from "./store/modules/layouts";
 import VueGridLayout from "vue-grid-layout";
 import CreatedLayout from "./components/CreatedLayout";
@@ -88,6 +86,7 @@ export default {
     ...mapMutations("layouts", {
       setLayouts: SET_LAYOUTS,
       addComponent: ADD_COMPONENT,
+      deleteComponent: DELETE_COMPONENT
     }),
     updateLayout(newLayout) {
       this.setLayouts(newLayout);
@@ -97,6 +96,9 @@ export default {
     },
     handleResize() {
       this.deviceWidth = window.innerWidth;
+    },
+    onClickDelete(id) {
+      this.deleteComponent(id);
     },
   },
   watch: {
@@ -135,5 +137,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 3px;
+  right: 9px;
+  bottom: 0;
+  cursor: pointer;
 }
 </style>
