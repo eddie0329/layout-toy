@@ -19,6 +19,7 @@
           :y="item.y"
           :w="item.w"
           :h="item.h"
+          :min-w="item.minW"
           :i="item.i"
         >
           <component :is="item.i"></component>
@@ -99,7 +100,29 @@ export default {
     },
   },
   watch: {
-    // deviceWidth(value) {},
+    deviceWidth(value) {
+      if (value < 900) {
+        this._layouts = this._layouts.map((layout) => {
+          if (layout.i === "RankingComponent") {
+            layout.w = 24;
+          }
+          if (layout.i === "CurrentArenas") {
+            layout.w = 24;
+          }
+          return layout;
+        });
+      } else {
+        this._layouts = this._layouts.map((layout) => {
+          if (layout.i === "RankingComponent") {
+            layout.w = 12;
+          }
+          if (layout.i === "CurrentArenas") {
+            layout.w = 12;
+          }
+          return layout;
+        });
+      }
+    },
   },
 };
 </script>

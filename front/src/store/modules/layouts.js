@@ -4,10 +4,10 @@ const getDefaultState = () => ({
     // { x: 4, y: 0, w: 4, h: 4, i: "Test2", id: 2 },
     // { x: 8, y: 0, w: 4, h: 5, i: "Test3", id: 3 },
     // { x: 12, y: 0, w: 4, h: 3, i: "Test4", id: 4 },
-    { x: 0, y: 0, w: 12, h: 1, i: "LvupTv" },
-    { x: 12, y: 0, w: 12, h: 1, i: "CurrentArenas" },
-    { x: 0, y: 0, w: 12, h: 1, i: "RankingComponent" },
-    { x: 12, y: 0, w: 12, h: 1, i: "UserBanner" },
+    { x: 0, y: 0, w: 24, minW: 24, h: 5, i: "LvupTv" },
+    { x: 0, y: 5, w: 24, minW: 24, h: 5, i: "UserBanner" },
+    { x: 0, y: 10, w: 12, minW: 12, h: 5, i: "RankingComponent" },
+    { x: 12, y: 10, w: 12, minW: 12, h: 5, i: "CurrentArenas" },
   ],
   isEditLayout: true,
 });
@@ -27,7 +27,7 @@ const mutations = {
     state.layouts = newLayouts;
   },
   [ADD_COMPONENT](state) {
-    state.layouts.push({ x: 0, y: 0, w: 24, h: 1, i: "Test" });
+    state.layouts.unshift({ x: 0, y: 0, w: 24, h: 5, i: "Test" });
   },
 };
 
