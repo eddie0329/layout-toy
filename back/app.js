@@ -14,6 +14,7 @@ app.get("/", (req, res) => {
       { placement: 3, name: "chris" },
       { placement: 4, name: "jake" },
     ],
+    isLive: true,
   });
 });
 
