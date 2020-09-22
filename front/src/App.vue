@@ -146,7 +146,6 @@ export default {
       } else {
         this.getRanking();
       }
-      console.log("HELLO IS_EDIT", value);
     },
   },
 };
