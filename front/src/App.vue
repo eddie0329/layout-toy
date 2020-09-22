@@ -27,8 +27,9 @@
         </grid-item>
       </grid-layout>
       <button v-if="isEdit" @click="onClickEdit">CREATE</button>
-      <button v-if="isEdit" @click="addComponent">ADD</button>
       <button v-else @click="onClickEdit">EDIT</button>
+      <button v-if="isEdit" @click="addComponent">ADD</button>
+      <button v-else @click="changeTvLive">LIVE STREAM!</button>
     </div>
   </div>
 </template>
@@ -42,6 +43,7 @@ import {
   DELETE_COMPONENT,
   INIT_RANKING,
   GET_RANKINGS,
+  CHANGE_TV_LIVE,
 } from "./store/modules/layouts";
 import VueGridLayout from "vue-grid-layout";
 import CreatedLayout from "./components/CreatedLayout";
@@ -90,6 +92,7 @@ export default {
     ...mapActions("layouts", {
       changeIsEditStatus: CHANGE_IS_EDIT_STATUS,
       getRanking: GET_RANKINGS,
+      changeTvLive: CHANGE_TV_LIVE,
     }),
     ...mapMutations("layouts", {
       setLayouts: SET_LAYOUTS,

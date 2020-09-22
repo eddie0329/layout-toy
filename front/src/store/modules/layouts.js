@@ -2,16 +2,13 @@ import axios from "axios";
 
 const getDefaultState = () => ({
   layouts: [
-    // { x: 0, y: 0, w: 4, h: 2, i: "Test1", id: 1 },
-    // { x: 4, y: 0, w: 4, h: 4, i: "Test2", id: 2 },
-    // { x: 8, y: 0, w: 4, h: 5, i: "Test3", id: 3 },
-    // { x: 12, y: 0, w: 4, h: 3, i: "Test4", id: 4 },
-    { x: 0, y: 0, w: 24, minW: 24, h: 5, i: "LvupTv", id: 1 },
-    { x: 0, y: 5, w: 24, minW: 24, h: 5, i: "UserBanner", id: 2 },
+    { x: 0, y: 0, w: 24, minW: 24, h: 5, i: "UserBanner", id: 2 },
+    { x: 0, y: 5, w: 24, minW: 24, h: 5, i: "LvupTv", id: 1 },
     { x: 0, y: 10, w: 12, minW: 12, h: 5, i: "RankingComponent", id: 3 },
     { x: 12, y: 10, w: 12, minW: 12, h: 5, i: "CurrentArenas", id: 4 },
   ],
   isEditLayout: true,
+  isLive: false,
   ranking: [],
 });
 
@@ -53,6 +50,7 @@ const mutations = {
 // action type
 export const CHANGE_IS_EDIT_STATUS = "CHANGE_IS_EDIT_STATUS";
 export const GET_RANKINGS = "GET_RANKINGS";
+export const CHANGE_TV_LIVE = "CHANGE_TV_LIVE";
 
 const actions = {
   [CHANGE_IS_EDIT_STATUS]({ state, commit }) {
@@ -63,6 +61,14 @@ const actions = {
     const response = await axios.get("http://localhost:3000/");
     const { ranking } = response.data;
     commit(SET_RANKING, ranking);
+  },
+  [CHANGE_TV_LIVE]({ state }) {
+    const { layouts } = state;
+    const indexOfTv = layouts.findIndex((layout) => layout.i === "LvupTv");
+    const spliced = layouts.splice(indexOfTv, 1);
+    spliced[0].x = 0;
+    spliced[0].y = 0;
+    layouts.unshift(spliced[0]);
   },
 };
 
