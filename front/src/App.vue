@@ -22,7 +22,7 @@
           :min-w="item.minW"
           :i="item.i"
         >
-          <component :is="item.i"></component>
+          <component :is="item.i" :is-edit="isEdit"></component>
           <div v-if="isEdit" @click="onClickDelete(item.id)" class="delete-btn">X</div>
         </grid-item>
       </grid-layout>
@@ -39,15 +39,22 @@ import {
   CHANGE_IS_EDIT_STATUS,
   SET_LAYOUTS,
   ADD_COMPONENT,
-  DELETE_COMPONENT
+  DELETE_COMPONENT,
+  INIT_RANKING,
+  GET_RANKINGS,
 } from "./store/modules/layouts";
 import VueGridLayout from "vue-grid-layout";
 import CreatedLayout from "./components/CreatedLayout";
 
 export default {
   name: "App",
+  created() {
+    this.initRanking();
+  },
   mounted() {
     window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+    this.handleResponsive(this.deviceWidth);
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
@@ -82,11 +89,13 @@ export default {
   methods: {
     ...mapActions("layouts", {
       changeIsEditStatus: CHANGE_IS_EDIT_STATUS,
+      getRanking: GET_RANKINGS,
     }),
     ...mapMutations("layouts", {
       setLayouts: SET_LAYOUTS,
       addComponent: ADD_COMPONENT,
-      deleteComponent: DELETE_COMPONENT
+      deleteComponent: DELETE_COMPONENT,
+      initRanking: INIT_RANKING,
     }),
     updateLayout(newLayout) {
       this.setLayouts(newLayout);
@@ -100,9 +109,7 @@ export default {
     onClickDelete(id) {
       this.deleteComponent(id);
     },
-  },
-  watch: {
-    deviceWidth(value) {
+    handleResponsive(value) {
       if (value < 900) {
         this._layouts = this._layouts.map((layout) => {
           if (layout.i === "RankingComponent") {
@@ -124,6 +131,19 @@ export default {
           return layout;
         });
       }
+    },
+  },
+  watch: {
+    deviceWidth(value) {
+      this.handleResponsive(value);
+    },
+    isEdit(value) {
+      if (value) {
+        this.initRanking();
+      } else {
+        this.getRanking();
+      }
+      console.log("HELLO IS_EDIT", value);
     },
   },
 };

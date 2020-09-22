@@ -5,7 +5,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    isEdit: {
+      type: Boolean,
+      default: true,
+    },
+  },
+};
 </script>
 
 <style>

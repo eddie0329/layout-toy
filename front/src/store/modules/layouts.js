@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const getDefaultState = () => ({
   layouts: [
     // { x: 0, y: 0, w: 4, h: 2, i: "Test1", id: 1 },
@@ -10,6 +12,7 @@ const getDefaultState = () => ({
     { x: 12, y: 10, w: 12, minW: 12, h: 5, i: "CurrentArenas", id: 4 },
   ],
   isEditLayout: true,
+  ranking: [],
 });
 
 const getters = {};
@@ -19,6 +22,8 @@ export const SET_IS_EDIT_LAYOUT = "SET_IS_EDIT_LAYOUT";
 export const SET_LAYOUTS = "SET_LAYOUTS";
 export const ADD_COMPONENT = "ADD_COMPONENT";
 export const DELETE_COMPONENT = "DELETE_COMPONENT";
+export const INIT_RANKING = "INIT_RANKING";
+export const SET_RANKING = "SET_RANKING";
 
 const mutations = {
   [SET_IS_EDIT_LAYOUT](state, editStatus) {
@@ -31,17 +36,33 @@ const mutations = {
     state.layouts.unshift({ x: 0, y: 0, w: 24, h: 5, i: "Test" });
   },
   [DELETE_COMPONENT](state, id) {
-    state.layouts = state.layouts.filter(layout => layout.id !== id);
-  }
+    state.layouts = state.layouts.filter((layout) => layout.id !== id);
+  },
+  [INIT_RANKING](state) {
+    Object.entries(getDefaultState()).forEach(([key, value]) => {
+      if (key === "ranking") {
+        state.ranking = value;
+      }
+    });
+  },
+  [SET_RANKING](state, newRanking) {
+    state.ranking = newRanking;
+  },
 };
 
 // action type
 export const CHANGE_IS_EDIT_STATUS = "CHANGE_IS_EDIT_STATUS";
+export const GET_RANKINGS = "GET_RANKINGS";
 
 const actions = {
   [CHANGE_IS_EDIT_STATUS]({ state, commit }) {
     const { isEditLayout } = state;
     commit(SET_IS_EDIT_LAYOUT, !isEditLayout);
+  },
+  async [GET_RANKINGS]({ commit }) {
+    const response = await axios.get("http://localhost:3000/");
+    const { ranking } = response.data;
+    commit(SET_RANKING, ranking);
   },
 };
 
