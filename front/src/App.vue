@@ -111,23 +111,25 @@ export default {
       this.deleteComponent(id);
     },
     handleResponsive(value) {
+      const FULL_SIZE = 24;
+      const HALF_SIZE = 12;
       if (value < 900) {
         this._layouts = this._layouts.map((layout) => {
           if (layout.i === "RankingComponent") {
-            layout.w = 24;
+            layout.w = FULL_SIZE;
           }
           if (layout.i === "CurrentArenas") {
-            layout.w = 24;
+            layout.w = FULL_SIZE;
           }
           return layout;
         });
       } else {
         this._layouts = this._layouts.map((layout) => {
           if (layout.i === "RankingComponent") {
-            layout.w = 12;
+            layout.w = HALF_SIZE;
           }
           if (layout.i === "CurrentArenas") {
-            layout.w = 12;
+            layout.w = HALF_SIZE;
           }
           return layout;
         });
