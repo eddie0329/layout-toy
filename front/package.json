@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "storybook": "start-storybook -s ./public/assets -p 6006"
   },
   "dependencies": {
     "axios": "^0.20.0",
@@ -17,6 +18,7 @@
     "vuex": "^3.5.1"
   },
   "devDependencies": {
+    "@storybook/vue": "^6.0.21",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
