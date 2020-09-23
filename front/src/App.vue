@@ -46,7 +46,6 @@ import {
   CHANGE_TV_LIVE,
 } from "./store/modules/layouts";
 import VueGridLayout from "vue-grid-layout";
-import CreatedLayout from "./components/CreatedLayout";
 
 export default {
   name: "App",
@@ -70,7 +69,6 @@ export default {
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
-    CreatedLayout,
     LvupTv: () => import("./components/LvupTv"),
     CurrentArenas: () => import("./components/CurrentArenas"),
     RankingComponent: () => import("./components/RankingComponent"),
