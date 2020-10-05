@@ -13,6 +13,13 @@ app.get("/", (req, res) => {
       { placement: 2, name: "sam" },
       { placement: 3, name: "chris" },
       { placement: 4, name: "jake" },
+      { placement: 5, name: "jake" },
+      { placement: 6, name: "jake" },
+      { placement: 7, name: "jake" },
+      { placement: 8, name: "jake" },
+      { placement: 9, name: "jake" },
+      { placement: 10, name: "jake" },
+      { placement: 11, name: "jake" },
     ],
     isLive: true,
   });
