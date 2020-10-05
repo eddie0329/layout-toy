@@ -45,6 +45,7 @@ import {
   GET_RANKINGS,
   CHANGE_TV_LIVE,
 } from "./store/modules/layouts";
+import _cloneDeep from 'lodash/cloneDeep';
 import VueGridLayout from "vue-grid-layout";
 
 export default {
@@ -140,11 +141,18 @@ export default {
     deviceWidth(value) {
       this.handleResponsive(value);
     },
-    isEdit(value) {
+    async isEdit(value) {
       if (value) {
         this.initRanking();
       } else {
-        this.getRanking();
+        await this.getRanking();
+        const clonedLayouts = _cloneDeep(this.layouts);
+        clonedLayouts.forEach(layout => {
+          if (layout.i === "RankingComponent") {
+            layout.h = document.querySelector('.ranking').clientHeight / 30;
+          }
+        });
+        this.setLayouts(clonedLayouts);
       }
     },
   },

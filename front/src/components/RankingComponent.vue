@@ -1,5 +1,15 @@
 <template>
-  <div style="background: red; width: 100%; height: 100%; overflow-y: auto; position: absolute">
+  <!-- <div class="ranking" style="background: red; width: 100%; height: 100%; overflow-y: auto; position: absolute"> -->
+  <div
+    class="ranking"
+    style="
+      background: red;
+      width: 100%;
+      min-height: 100%;
+      overflow-y: auto;
+      position: absolute;
+    "
+  >
     <h5>RANKING COMPONENT</h5>
     <ul>
       <li v-for="rank in ranking" :key="rank.placement">
@@ -14,6 +24,9 @@
 import { mapState } from "vuex";
 
 export default {
+  mounted() {
+    // console.log(this.$refs.ranking.clientHeight);
+  },
   name: "RankingComponent",
   computed: {
     ...mapState("layouts", ["ranking"]),
